@@ -165,12 +165,12 @@ const performanceData = [
 ];
 
 const skillDistribution = [
-  { name: "Technical Skills", value: 35, color: "hsl(var(--chart-1))" },
-  { name: "Communication", value: 25, color: "hsl(var(--chart-2))" },
-  { name: "Problem Solving", value: 20, color: "hsl(var(--chart-3))" },
-  { name: "Leadership", value: 12, color: "hsl(var(--chart-4))" },
-  { name: "Others", value: 8, color: "hsl(var(--chart-5))" },
-];
+  { name: "Frontend Development", value: 35, color: "#3b82f6", students: 156 },
+  { name: "Backend Development", value: 25, color: "#10b981", students: 112 },
+  { name: "Data Science", value: 20, color: "#f59e0b", students: 89 },
+  { name: "UI/UX Design", value: 12, color: "#ef4444", students: 54 },
+  { name: "DevOps", value: 8, color: "#8b5cf6", students: 36 },
+]
 
 const pendingReviews = [
   {
@@ -290,7 +290,7 @@ export default function FacultyPage() {
               </div>
               <div className="flex items-center gap-3">
                 <Avatar className="h-8 w-8 md:h-10 md:w-10">
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" />
+                  <AvatarImage src="/user.jpg" />
                   <AvatarFallback>PS</AvatarFallback>
                 </Avatar>
                 <div className="text-xs md:text-sm">
@@ -547,26 +547,21 @@ export default function FacultyPage() {
                     <div className="h-80">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={performanceData}>
-                          <CartesianGrid
-                            strokeDasharray="3 3"
-                            stroke="hsl(var(--border))"
-                          />
-                          <XAxis
-                            dataKey="month"
-                            stroke="hsl(var(--muted-foreground))"
-                          />
-                          <YAxis stroke="hsl(var(--muted-foreground))" />
-                          <Tooltip
-                            contentStyle={{
-                              backgroundColor: "hsl(var(--background))",
-                              border: "1px solid hsl(var(--border))",
-                              borderRadius: "6px",
-                              color: "hsl(var(--foreground))",
-                            }}
-                          />
-                          <Bar dataKey="completed" fill="hsl(var(--chart-1))" />
-                          <Bar dataKey="pending" fill="hsl(var(--chart-3))" />
-                        </BarChart>
+  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+  <XAxis dataKey="month" stroke="#6b7280" />
+  <YAxis stroke="#6b7280" />
+  <Tooltip
+    contentStyle={{
+      backgroundColor: "#ffffff",
+      border: "1px solid #e5e7eb",
+      borderRadius: "6px",
+      color: "#111827",
+    }}
+  />
+  <Bar dataKey="completed" fill="#3b82f6" />
+  <Bar dataKey="pending" fill="#ef4444" />
+</BarChart>
+
                       </ResponsiveContainer>
                     </div>
                   </CardContent>
@@ -618,7 +613,7 @@ export default function FacultyPage() {
                           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <div className="flex items-center gap-4">
                               <Avatar className="h-12 w-12">
-                                <AvatarImage src="/placeholder.svg?height=48&width=48" />
+                                <AvatarImage src="/user.jpg" />
                                 <AvatarFallback>
                                   {student.name
                                     .split(" ")
@@ -759,30 +754,31 @@ export default function FacultyPage() {
                       <div className="h-80">
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart data={performanceData}>
-                            <CartesianGrid
-                              strokeDasharray="3 3"
-                              stroke="hsl(var(--border))"
-                            />
-                            <XAxis
-                              dataKey="month"
-                              stroke="hsl(var(--muted-foreground))"
-                            />
-                            <YAxis stroke="hsl(var(--muted-foreground))" />
-                            <Tooltip
-                              contentStyle={{
-                                backgroundColor: "hsl(var(--background))",
-                                border: "1px solid hsl(var(--border))",
-                                borderRadius: "6px",
-                                color: "hsl(var(--foreground))",
-                              }}
-                            />
-                            <Line
-                              type="monotone"
-                              dataKey="completed"
-                              stroke="hsl(var(--chart-1))"
-                              strokeWidth={3}
-                            />
-                          </LineChart>
+  <CartesianGrid
+    strokeDasharray="3 3"
+    stroke="#e5e7eb"  // light gray grid
+  />
+  <XAxis
+    dataKey="month"
+    stroke="#6b7280"  // muted text
+  />
+  <YAxis stroke="#6b7280" />
+  <Tooltip
+    contentStyle={{
+      backgroundColor: "#ffffff",
+      border: "1px solid #e5e7eb",
+      borderRadius: "6px",
+      color: "#111827",
+    }}
+  />
+  <Line
+    type="monotone"
+    dataKey="completed"
+    stroke="#3b82f6"  // primary blue line
+    strokeWidth={3}
+  />
+</LineChart>
+
                         </ResponsiveContainer>
                       </div>
                     </CardContent>

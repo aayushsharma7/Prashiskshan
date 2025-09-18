@@ -144,7 +144,7 @@ export function Navigation() {
                   <DropdownMenuTrigger>
                     <Button variant="ghost" className="relative h-14 mr-3 w-9 rounded-full">
                       <Avatar className="h-9 w-9">
-                        <AvatarImage src="/placeholder.svg?height=36&width=36" />
+                        <AvatarImage src="/user1.jpg" />
                         <AvatarFallback className="text-xs">{user.email.substring(0, 2).toUpperCase()}</AvatarFallback>
                       </Avatar>
                     </Button>

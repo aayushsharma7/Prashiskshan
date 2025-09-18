@@ -318,7 +318,7 @@ export default function IndustryPage() {
               </div>
               <div className="flex items-center gap-3">
                 <Avatar className="h-8 w-8 md:h-10 md:w-10">
-                  <AvatarImage src="/placeholder.svg?height=40&width=40" />
+                  <AvatarImage src="/user.jpg" />
                   <AvatarFallback>TC</AvatarFallback>
                 </Avatar>
                 <div className="text-xs md:text-sm">
@@ -504,20 +504,21 @@ export default function IndustryPage() {
                     <div className="h-80">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={performanceData}>
-                          <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                          <XAxis dataKey="month" className="text-muted-foreground" />
-                          <YAxis className="text-muted-foreground" />
-                          <Tooltip
-                            contentStyle={{
-                              backgroundColor: "hsl(var(--background))",
-                              border: "1px solid hsl(var(--border))",
-                              borderRadius: "6px",
-                            }}
-                          />
-                          <Bar dataKey="applications" fill="hsl(var(--muted-foreground))" />
-                          <Bar dataKey="hired" fill="hsl(var(--primary))" />
-                          <Bar dataKey="completed" fill="hsl(var(--chart-1))" />
-                        </BarChart>
+  <CartesianGrid strokeDasharray="3 3" stroke="#6b7280" /> {/* muted color */}
+  <XAxis dataKey="month" stroke="#6b7280" /> {/* muted text color */}
+  <YAxis stroke="#6b7280" />
+  <Tooltip
+    contentStyle={{
+      backgroundColor: "#ffffff", // white background
+      border: "1px solid #d1d5db", // light border
+      borderRadius: "6px",
+    }}
+  />
+  <Bar dataKey="applications" fill="#ef4444" /> {/* muted foreground */}
+  <Bar dataKey="hired" fill="#2563eb" /> {/* primary blue */}
+  <Bar dataKey="completed" fill="#3b82f6" /> {/* chart line blue */}
+</BarChart>
+
                       </ResponsiveContainer>
                     </div>
                   </CardContent>
@@ -727,7 +728,7 @@ export default function IndustryPage() {
                           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <div className="flex items-center gap-4">
                               <Avatar className="h-12 w-12">
-                                <AvatarImage src="/placeholder.svg?height=48&width=48" />
+                                <AvatarImage src="/user.jpg" />
                                 <AvatarFallback>
                                   {application.student
                                     .split(" ")
@@ -800,7 +801,7 @@ export default function IndustryPage() {
                           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                             <div className="flex items-center gap-4">
                               <Avatar className="h-12 w-12">
-                                <AvatarImage src="/placeholder.svg?height=48&width=48" />
+                                <AvatarImage src="/user.jpg" />
                                 <AvatarFallback>
                                   {intern.name
                                     .split(" ")
@@ -867,12 +868,29 @@ export default function IndustryPage() {
                       <div className="h-80">
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart data={performanceData}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="month" />
-                            <YAxis />
-                            <Tooltip />
-                            <Line type="monotone" dataKey="applications" stroke="hsl(var(--primary))" strokeWidth={2} />
-                            <Line type="monotone" dataKey="hired" stroke="hsl(var(--chart-1))" strokeWidth={2} />
+                            <CartesianGrid
+                              strokeDasharray="3 3"
+                              stroke="#e5e7eb"  // light gray grid
+                            />
+                            <XAxis
+                              dataKey="month"
+                              stroke="#6b7280"  // muted text
+                            />
+                            <YAxis stroke="#6b7280" />
+                            <Tooltip
+                              contentStyle={{
+                                backgroundColor: "#ffffff",
+                                border: "1px solid #e5e7eb",
+                                borderRadius: "6px",
+                                color: "#111827",
+                              }}
+                            />
+                            <Line
+                              type="monotone"
+                              dataKey="completed"
+                              stroke="#3b82f6"  // primary blue line
+                              strokeWidth={3}
+                            />
                           </LineChart>
                         </ResponsiveContainer>
                       </div>
@@ -964,7 +982,7 @@ export default function IndustryPage() {
                   <CardContent className="space-y-6">
                     <div className="flex items-center gap-4">
                       <Avatar className="h-20 w-20">
-                        <AvatarImage src="/placeholder.svg?height=80&width=80" />
+                        <AvatarImage src="/user.jpg" />
                         <AvatarFallback className="text-lg">TC</AvatarFallback>
                       </Avatar>
                       <div>

@@ -226,32 +226,32 @@ export function AnalyticsDashboard({ userType = "admin", timeRange = "month" }: 
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Pie
-                                                                                data={skillDistribution}
-                                                                                cx="50%"
-                                                                                cy="50%"
-                                                                                labelLine={false}
-                                                                                // Destructure the props passed by Recharts
-                                                                                label={({ name, percent, x, y, textAnchor, dominantBaseline }: any) => (
-                                                                                  <text
-                                                                                    x={x}
-                                                                                    y={y}
-                                                                                    fill="#333"
-                                                                                    textAnchor={textAnchor}
-                                                                                    dominantBaseline={dominantBaseline}
-                                                                                    fontSize={12}
-                                                                                  >
-                                                                                    {`${name} ${(percent * 100).toFixed(0)}%`}
-                                                                                  </text>
-                                                                                )}
-                                                                                outerRadius={80}
-                                                                                fill="#8884d8"
-                                                                                dataKey="value"
-                                                                              >
-                                                                                {skillDistribution.map((entry, index) => (
-                                                                                  <Cell key={`cell-${index}`} fill={entry.color} />
-                                                                                ))}
-                                                                              </Pie>
+                    <Pie
+                    data={skillDistribution}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    // Destructure the props passed by Recharts
+                    label={({ name, percent, x, y, textAnchor, dominantBaseline }: any) => (
+                    <text
+                      x={x}
+                      y={y}
+                      fill="#333"
+                      textAnchor={textAnchor}
+                      dominantBaseline={dominantBaseline}
+                      fontSize={12}
+                    >
+                      {`${name} ${(percent * 100).toFixed(0)}%`}
+                    </text>
+                    )}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                    >
+                    {skillDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                    </Pie>
                   <Tooltip content={<CustomTooltip />} />
                 </PieChart>
               </ResponsiveContainer>

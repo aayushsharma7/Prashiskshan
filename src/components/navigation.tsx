@@ -3,7 +3,7 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
-import { GraduationCap, Users, Building2, BarChart3, LogOut, User } from "lucide-react"
+import { GraduationCap, Users, Building2, BarChart3, LogOut, User, MessageCircle, Brain, BookIcon } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -22,11 +22,11 @@ const getNavigationForRole = (role: string) => {
 
   switch (role) {
     case "student":
-      return [...baseNavigation, { name: "My Dashboard", href: "/students", icon: GraduationCap }]
+      return [ { name: "My Dashboard", href: "/students", icon: GraduationCap },{name: "Mentorship", href: "/mentorship", icon: MessageCircle}, {name: "Learning", href: "/learning", icon: BookIcon}]
     case "faculty":
-      return [...baseNavigation, { name: "Faculty Dashboard", href: "/faculty", icon: Users }]
+      return [ { name: "Faculty Dashboard", href: "/faculty", icon: Users }]
     case "industry":
-      return [...baseNavigation, { name: "Industry Dashboard", href: "/industry", icon: Building2 }]
+      return [ { name: "Industry Dashboard", href: "/industry", icon: Building2 }]
     case "admin":
       return [
         ...baseNavigation,
@@ -85,62 +85,64 @@ export function Navigation() {
   return (
     <>
       <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 max-w-screen-2xl items-center px-4">
-          <div className="mr-4 hidden md:flex">
-            <Link href="/" className="mr-6 flex items-center space-x-2">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.3 }}
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
-              >
-                <GraduationCap className="h-5 w-5" />
+  <div className="container flex h-16 max-w-screen-2xl items-center px-4">
+    <Link href="/" className="mr-6 flex items-center space-x-2">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+        >
+          <GraduationCap className="h-5 w-5" />
+        </motion.div>
+        <span className="hidden font-bold sm:inline-block text-balance">Prashiskshan</span>
+      </Link>
+    {/* This div will now take up all available space to allow for centering */}
+    <div className="flex-1 mr-10 hidden md:flex items-center justify-center">
+      
+      {navigation.length > 0 && (
+        <nav className="flex items-center gap-4 text-sm">
+          {navigation.map((item) => {
+            const Icon = item.icon
+            return (
+              <motion.div key={item.name} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-2 transition-colors hover:text-foreground/80 px-3 py-2 rounded-md whitespace-nowrap",
+                    pathname === item.href
+                      ? "text-foreground bg-accent"
+                      : "text-foreground/60 hover:bg-accent/50",
+                  )}
+                >
+                  <Icon className="h-4 w-4" />
+                  {item.name}
+                </Link>
               </motion.div>
-              <span className="hidden font-bold sm:inline-block text-balance">Prashiskshan</span>
-            </Link>
-            {navigation.length > 0 && (
-              <nav className="flex items-center gap-4 text-sm">
-                {navigation.map((item) => {
-                  const Icon = item.icon
-                  return (
-                    <motion.div key={item.name} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          "flex items-center gap-2 transition-colors hover:text-foreground/80 px-3 py-2 rounded-md whitespace-nowrap",
-                          pathname === item.href
-                            ? "text-foreground bg-accent"
-                            : "text-foreground/60 hover:bg-accent/50",
-                        )}
-                      >
-                        <Icon className="h-4 w-4" />
-                        {item.name}
-                      </Link>
-                    </motion.div>
-                  )
-                })}
-              </nav>
-            )}
-          </div>
+            )
+          })}
+        </nav>
+      )}
+    </div>
 
-          <div className="flex flex-1 items-center justify-between md:justify-end">
-            <Link href="/" className="flex items-center space-x-2 md:hidden">
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.3 }}
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
-              >
-                <GraduationCap className="h-6 w-6" />
-              </motion.div>
-              <span className="font-bold text-lg">Prashiskshan</span>
-            </Link>
-            <nav className="hidden md:flex items-center gap-3">
-              <ThemeToggle />
+    <div className="flex items-center justify-between md:justify-end">
+      <Link href="/" className="flex items-center space-x-2 md:hidden">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+        >
+          <GraduationCap className="h-6 w-6" />
+        </motion.div>
+        <span className="font-bold text-lg">Prashiskshan</span>
+      </Link>
+      <nav className="hidden md:flex items-center gap-3">
+        <ThemeToggle />
               {user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger>
-                    <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                    <Button variant="ghost" className="relative h-14 mr-3 w-9 rounded-full">
                       <Avatar className="h-9 w-9">
                         <AvatarImage src="/placeholder.svg?height=36&width=36" />
                         <AvatarFallback className="text-xs">{user.email.substring(0, 2).toUpperCase()}</AvatarFallback>
@@ -175,6 +177,7 @@ export function Navigation() {
           </div>
         </div>
       </nav>
+      
 
       <MobileNav />
     </>

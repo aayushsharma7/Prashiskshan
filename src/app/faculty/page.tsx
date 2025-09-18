@@ -1,17 +1,29 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { AuthGuard } from "@/components/auth-guard"
-import { Navigation } from "@/components/navigation"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { AuthGuard } from "@/components/auth-guard";
+import { Navigation } from "@/components/navigation";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   BarChart,
   Bar,
@@ -25,7 +37,7 @@ import {
   PieChart,
   Pie,
   Cell,
-} from "recharts"
+} from "recharts";
 import {
   TrendingUp,
   FileText,
@@ -42,7 +54,7 @@ import {
   Award,
   Target,
   Search,
-} from "lucide-react"
+} from "lucide-react";
 
 const facultyProfile = {
   name: "Dr. Priya Sharma",
@@ -51,7 +63,7 @@ const facultyProfile = {
   email: "priya.sharma@college.edu",
   studentsSupervised: 45,
   activeInternships: 32,
-}
+};
 
 const dashboardStats = [
   {
@@ -82,7 +94,7 @@ const dashboardStats = [
     icon: TrendingUp,
     color: "text-purple-600",
   },
-]
+];
 
 const studentsList = [
   {
@@ -141,7 +153,7 @@ const studentsList = [
     lastUpdate: "3 days ago",
     skillScore: 71,
   },
-]
+];
 
 const performanceData = [
   { month: "Jan", students: 45, completed: 42, pending: 3 },
@@ -150,7 +162,7 @@ const performanceData = [
   { month: "Apr", students: 61, completed: 58, pending: 3 },
   { month: "May", students: 49, completed: 46, pending: 3 },
   { month: "Jun", students: 55, completed: 52, pending: 3 },
-]
+];
 
 const skillDistribution = [
   { name: "Technical Skills", value: 35, color: "hsl(var(--chart-1))" },
@@ -158,7 +170,7 @@ const skillDistribution = [
   { name: "Problem Solving", value: 20, color: "hsl(var(--chart-3))" },
   { name: "Leadership", value: 12, color: "hsl(var(--chart-4))" },
   { name: "Others", value: 8, color: "hsl(var(--chart-5))" },
-]
+];
 
 const pendingReviews = [
   {
@@ -185,7 +197,7 @@ const pendingReviews = [
     deadline: "2024-01-24",
     priority: "high",
   },
-]
+];
 
 const industryPartners = [
   {
@@ -212,46 +224,47 @@ const industryPartners = [
     rating: 4.9,
     lastContact: "3 days ago",
   },
-]
+];
 
 export default function FacultyPage() {
-  const [selectedTab, setSelectedTab] = useState("dashboard")
-  const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
+  const [selectedTab, setSelectedTab] = useState("dashboard");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
-        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
       case "completed":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
       case "pending-review":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
       default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300"
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
     }
-  }
+  };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case "high":
-        return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+        return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
       case "medium":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
       case "low":
-        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
       default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300"
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
     }
-  }
+  };
 
   const filteredStudents = studentsList.filter((student) => {
     const matchesSearch =
       student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.company.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesStatus = statusFilter === "all" || student.status === statusFilter
-    return matchesSearch && matchesStatus
-  })
+      student.company.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || student.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   return (
     <AuthGuard allowedRoles={["faculty"]}>
@@ -267,9 +280,12 @@ export default function FacultyPage() {
           >
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
               <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-balance">Faculty Coordinator Dashboard</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-balance">
+                  Faculty Coordinator Dashboard
+                </h1>
                 <p className="text-sm md:text-base text-muted-foreground text-pretty">
-                  Monitor student progress, evaluate performance, and manage internship programs
+                  Monitor student progress, evaluate performance, and manage
+                  internship programs
                 </p>
               </div>
               <div className="flex items-center gap-3">
@@ -279,12 +295,18 @@ export default function FacultyPage() {
                 </Avatar>
                 <div className="text-xs md:text-sm">
                   <p className="font-medium">{facultyProfile.name}</p>
-                  <p className="text-muted-foreground hidden md:block">{facultyProfile.designation}</p>
+                  <p className="text-muted-foreground hidden md:block">
+                    {facultyProfile.designation}
+                  </p>
                 </div>
               </div>
             </div>
 
-            <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
+            <Tabs
+              value={selectedTab}
+              onValueChange={setSelectedTab}
+              className="w-full"
+            >
               <div className="overflow-x-auto">
                 <TabsList className="grid w-full grid-cols-7 mb-6 md:mb-8 min-w-max md:min-w-0">
                   <TabsTrigger value="dashboard" className="text-xs md:text-sm">
@@ -305,7 +327,10 @@ export default function FacultyPage() {
                   <TabsTrigger value="reports" className="text-xs md:text-sm">
                     Reports
                   </TabsTrigger>
-                  <TabsTrigger value="ai-assistant" className="text-xs md:text-sm">
+                  <TabsTrigger
+                    value="ai-assistant"
+                    className="text-xs md:text-sm"
+                  >
                     AI Assistant
                   </TabsTrigger>
                 </TabsList>
@@ -323,11 +348,17 @@ export default function FacultyPage() {
                       <div className="flex items-start gap-3">
                         <AlertTriangle className="h-5 w-5 text-orange-600 mt-0.5" />
                         <div className="flex-1">
-                          <h3 className="font-semibold text-orange-800 dark:text-orange-200">Security Alert:</h3>
+                          <h3 className="font-semibold text-orange-800 dark:text-orange-200">
+                            Security Alert:
+                          </h3>
                           <p className="text-sm text-orange-700 dark:text-orange-300 mt-1">
-                            2 suspicious internship postings detected and blocked from reaching students.
+                            2 suspicious internship postings detected and
+                            blocked from reaching students.
                           </p>
-                          <Button variant="link" className="p-0 h-auto text-orange-600 hover:text-orange-800 text-sm">
+                          <Button
+                            variant="link"
+                            className="p-0 h-auto text-orange-600 hover:text-orange-800 text-sm"
+                          >
                             View details
                           </Button>
                         </div>
@@ -339,7 +370,7 @@ export default function FacultyPage() {
                 {/* Stats Overview */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {dashboardStats.map((stat, index) => {
-                    const Icon = stat.icon
+                    const Icon = stat.icon;
                     return (
                       <motion.div
                         key={stat.title}
@@ -349,13 +380,23 @@ export default function FacultyPage() {
                       >
                         <Card>
                           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">{stat.title}</CardTitle>
+                            <CardTitle className="text-sm font-medium">
+                              {stat.title}
+                            </CardTitle>
                             <Icon className={`h-4 w-4 ${stat.color}`} />
                           </CardHeader>
                           <CardContent>
-                            <div className="text-2xl font-bold">{stat.value}</div>
+                            <div className="text-2xl font-bold">
+                              {stat.value}
+                            </div>
                             <p className="text-xs text-muted-foreground">
-                              <span className={stat.change.startsWith("+") ? "text-green-600" : "text-red-600"}>
+                              <span
+                                className={
+                                  stat.change.startsWith("+")
+                                    ? "text-green-600"
+                                    : "text-red-600"
+                                }
+                              >
                                 {stat.change}
                               </span>{" "}
                               from last month
@@ -363,7 +404,7 @@ export default function FacultyPage() {
                           </CardContent>
                         </Card>
                       </motion.div>
-                    )
+                    );
                   })}
                 </div>
 
@@ -375,14 +416,20 @@ export default function FacultyPage() {
                         <FileText className="h-5 w-5" />
                         AI Resume Analysis
                       </CardTitle>
-                      <CardDescription>Real-time skill extraction and gap analysis for students</CardDescription>
+                      <CardDescription>
+                        Real-time skill extraction and gap analysis for students
+                      </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="space-y-3">
                         <div className="flex items-center justify-between p-3 border rounded-lg">
                           <div>
-                            <h4 className="font-semibold text-sm">Alex Johnson</h4>
-                            <p className="text-sm text-muted-foreground">Frontend Developer Track</p>
+                            <h4 className="font-semibold text-sm">
+                              Alex Johnson
+                            </h4>
+                            <p className="text-sm text-muted-foreground">
+                              Frontend Developer Track
+                            </p>
                             <div className="flex gap-1 mt-1">
                               <Badge variant="secondary" className="text-xs">
                                 React
@@ -390,20 +437,31 @@ export default function FacultyPage() {
                               <Badge variant="secondary" className="text-xs">
                                 JavaScript
                               </Badge>
-                              <Badge variant="outline" className="text-xs text-orange-600">
+                              <Badge
+                                variant="outline"
+                                className="text-xs text-orange-600"
+                              >
                                 Missing: TypeScript
                               </Badge>
                             </div>
                           </div>
                           <div className="text-right">
-                            <div className="text-sm font-medium text-green-600">85% Match</div>
-                            <div className="text-xs text-muted-foreground">2 skill gaps</div>
+                            <div className="text-sm font-medium text-green-600">
+                              85% Match
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              2 skill gaps
+                            </div>
                           </div>
                         </div>
                         <div className="flex items-center justify-between p-3 border rounded-lg">
                           <div>
-                            <h4 className="font-semibold text-sm">Priya Patel</h4>
-                            <p className="text-sm text-muted-foreground">Data Science Track</p>
+                            <h4 className="font-semibold text-sm">
+                              Priya Patel
+                            </h4>
+                            <p className="text-sm text-muted-foreground">
+                              Data Science Track
+                            </p>
                             <div className="flex gap-1 mt-1">
                               <Badge variant="secondary" className="text-xs">
                                 Python
@@ -411,18 +469,28 @@ export default function FacultyPage() {
                               <Badge variant="secondary" className="text-xs">
                                 SQL
                               </Badge>
-                              <Badge variant="outline" className="text-xs text-orange-600">
+                              <Badge
+                                variant="outline"
+                                className="text-xs text-orange-600"
+                              >
                                 Missing: ML Ops
                               </Badge>
                             </div>
                           </div>
                           <div className="text-right">
-                            <div className="text-sm font-medium text-blue-600">78% Match</div>
-                            <div className="text-xs text-muted-foreground">3 skill gaps</div>
+                            <div className="text-sm font-medium text-blue-600">
+                              78% Match
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              3 skill gaps
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <Button className="w-full bg-transparent" variant="outline">
+                      <Button
+                        className="w-full bg-transparent"
+                        variant="outline"
+                      >
                         View All Analyses
                       </Button>
                     </CardContent>
@@ -437,16 +505,30 @@ export default function FacultyPage() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {pendingReviews.slice(0, 3).map((review) => (
-                        <div key={review.id} className="flex items-center justify-between p-3 border rounded-lg">
+                        <div
+                          key={review.id}
+                          className="flex items-center justify-between p-3 border rounded-lg"
+                        >
                           <div>
-                            <h4 className="font-semibold text-sm">{review.student}</h4>
-                            <p className="text-sm text-muted-foreground">{review.type}</p>
-                            <p className="text-xs text-muted-foreground">Due: {review.deadline}</p>
+                            <h4 className="font-semibold text-sm">
+                              {review.student}
+                            </h4>
+                            <p className="text-sm text-muted-foreground">
+                              {review.type}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              Due: {review.deadline}
+                            </p>
                           </div>
-                          <Badge className={getPriorityColor(review.priority)}>{review.priority}</Badge>
+                          <Badge className={getPriorityColor(review.priority)}>
+                            {review.priority}
+                          </Badge>
                         </div>
                       ))}
-                      <Button className="w-full bg-transparent" variant="outline">
+                      <Button
+                        className="w-full bg-transparent"
+                        variant="outline"
+                      >
                         View All Reviews
                       </Button>
                     </CardContent>
@@ -457,14 +539,22 @@ export default function FacultyPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Student Performance Overview</CardTitle>
-                    <CardDescription>Monthly internship completion trends</CardDescription>
+                    <CardDescription>
+                      Monthly internship completion trends
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="h-80">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={performanceData}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                          <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
+                          <CartesianGrid
+                            strokeDasharray="3 3"
+                            stroke="hsl(var(--border))"
+                          />
+                          <XAxis
+                            dataKey="month"
+                            stroke="hsl(var(--muted-foreground))"
+                          />
                           <YAxis stroke="hsl(var(--muted-foreground))" />
                           <Tooltip
                             contentStyle={{
@@ -504,7 +594,9 @@ export default function FacultyPage() {
                       <SelectItem value="all">All Status</SelectItem>
                       <SelectItem value="active">Active</SelectItem>
                       <SelectItem value="completed">Completed</SelectItem>
-                      <SelectItem value="pending-review">Pending Review</SelectItem>
+                      <SelectItem value="pending-review">
+                        Pending Review
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <Button variant="outline" className="bg-transparent">
@@ -535,8 +627,12 @@ export default function FacultyPage() {
                                 </AvatarFallback>
                               </Avatar>
                               <div>
-                                <h3 className="font-semibold text-lg">{student.name}</h3>
-                                <p className="text-sm text-muted-foreground">{student.rollNo}</p>
+                                <h3 className="font-semibold text-lg">
+                                  {student.name}
+                                </h3>
+                                <p className="text-sm text-muted-foreground">
+                                  {student.rollNo}
+                                </p>
                                 <p className="text-sm text-muted-foreground">
                                   {student.position} at {student.company}
                                 </p>
@@ -546,33 +642,57 @@ export default function FacultyPage() {
                             <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4">
                               <div className="space-y-2">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-sm font-medium">Progress:</span>
-                                  <span className="text-sm">{student.progress}%</span>
+                                  <span className="text-sm font-medium">
+                                    Progress:
+                                  </span>
+                                  <span className="text-sm">
+                                    {student.progress}%
+                                  </span>
                                 </div>
-                                <Progress value={student.progress} className="w-32" />
+                                <Progress
+                                  value={student.progress}
+                                  className="w-32"
+                                />
                               </div>
 
                               <div className="text-sm space-y-1">
                                 <p>
-                                  <span className="font-medium">Mentor:</span> {student.mentor}
+                                  <span className="font-medium">Mentor:</span>{" "}
+                                  {student.mentor}
                                 </p>
                                 <p>
-                                  <span className="font-medium">Skill Score:</span> {student.skillScore}%
+                                  <span className="font-medium">
+                                    Skill Score:
+                                  </span>{" "}
+                                  {student.skillScore}%
                                 </p>
                                 <p>
-                                  <span className="font-medium">Last Update:</span> {student.lastUpdate}
+                                  <span className="font-medium">
+                                    Last Update:
+                                  </span>{" "}
+                                  {student.lastUpdate}
                                 </p>
                               </div>
 
                               <div className="flex items-center gap-2">
-                                <Badge className={getStatusColor(student.status)}>
+                                <Badge
+                                  className={getStatusColor(student.status)}
+                                >
                                   {student.status.replace("-", " ")}
                                 </Badge>
-                                <Button size="sm" variant="outline" className="bg-transparent">
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="bg-transparent"
+                                >
                                   <Eye className="h-4 w-4 mr-1" />
                                   View
                                 </Button>
-                                <Button size="sm" variant="outline" className="bg-transparent">
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="bg-transparent"
+                                >
                                   <Edit className="h-4 w-4 mr-1" />
                                   Edit
                                 </Button>
@@ -590,7 +710,9 @@ export default function FacultyPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Pending Reviews</CardTitle>
-                    <CardDescription>Student submissions awaiting your review</CardDescription>
+                    <CardDescription>
+                      Student submissions awaiting your review
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -601,13 +723,20 @@ export default function FacultyPage() {
                         >
                           <div className="space-y-1 mb-3 md:mb-0">
                             <h4 className="font-semibold">{review.student}</h4>
-                            <p className="text-sm text-muted-foreground">{review.type}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {review.type}
+                            </p>
                             <p className="text-xs text-muted-foreground">
-                              Submitted: {review.submitted} | Due: {review.deadline}
+                              Submitted: {review.submitted} | Due:{" "}
+                              {review.deadline}
                             </p>
                           </div>
                           <div className="flex items-center gap-2">
-                            <Badge className={getPriorityColor(review.priority)}>{review.priority}</Badge>
+                            <Badge
+                              className={getPriorityColor(review.priority)}
+                            >
+                              {review.priority}
+                            </Badge>
                             <Button size="sm">Review</Button>
                           </div>
                         </div>
@@ -622,14 +751,22 @@ export default function FacultyPage() {
                   <Card>
                     <CardHeader>
                       <CardTitle>Performance Trends</CardTitle>
-                      <CardDescription>Student completion rates over time</CardDescription>
+                      <CardDescription>
+                        Student completion rates over time
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="h-80">
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart data={performanceData}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                            <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
+                            <CartesianGrid
+                              strokeDasharray="3 3"
+                              stroke="hsl(var(--border))"
+                            />
+                            <XAxis
+                              dataKey="month"
+                              stroke="hsl(var(--muted-foreground))"
+                            />
                             <YAxis stroke="hsl(var(--muted-foreground))" />
                             <Tooltip
                               contentStyle={{
@@ -639,7 +776,12 @@ export default function FacultyPage() {
                                 color: "hsl(var(--foreground))",
                               }}
                             />
-                            <Line type="monotone" dataKey="completed" stroke="hsl(var(--chart-1))" strokeWidth={3} />
+                            <Line
+                              type="monotone"
+                              dataKey="completed"
+                              stroke="hsl(var(--chart-1))"
+                              strokeWidth={3}
+                            />
                           </LineChart>
                         </ResponsiveContainer>
                       </div>
@@ -649,38 +791,50 @@ export default function FacultyPage() {
                   <Card>
                     <CardHeader>
                       <CardTitle>Skill Distribution</CardTitle>
-                      <CardDescription>Focus areas of current internships</CardDescription>
+                      <CardDescription>
+                        Focus areas of current internships
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="h-80">
                         <ResponsiveContainer width="100%" height="100%">
                           <PieChart>
                             <Pie
-                                                                                          data={skillDistribution}
-                                                                                          cx="50%"
-                                                                                          cy="50%"
-                                                                                          labelLine={false}
-                                                                                          // Destructure the props passed by Recharts
-                                                                                          label={({ name, percent, x, y, textAnchor, dominantBaseline }: any) => (
-                                                                                            <text
-                                                                                              x={x}
-                                                                                              y={y}
-                                                                                              fill="#333"
-                                                                                              textAnchor={textAnchor}
-                                                                                              dominantBaseline={dominantBaseline}
-                                                                                              fontSize={12}
-                                                                                            >
-                                                                                              {`${name} ${(percent * 100).toFixed(0)}%`}
-                                                                                            </text>
-                                                                                          )}
-                                                                                          outerRadius={80}
-                                                                                          fill="#8884d8"
-                                                                                          dataKey="value"
-                                                                                        >
-                                                                                          {skillDistribution.map((entry, index) => (
-                                                                                            <Cell key={`cell-${index}`} fill={entry.color} />
-                                                                                          ))}
-                                                                                        </Pie>
+                              data={skillDistribution}
+                              cx="50%"
+                              cy="50%"
+                              labelLine={false}
+                              // Destructure the props passed by Recharts
+                              label={({
+                                name,
+                                percent,
+                                x,
+                                y,
+                                textAnchor,
+                                dominantBaseline,
+                              }: any) => (
+                                <text
+                                  x={x}
+                                  y={y}
+                                  fill="#333"
+                                  textAnchor={textAnchor}
+                                  dominantBaseline={dominantBaseline}
+                                  fontSize={12}
+                                >
+                                  {`${name} ${(percent * 100).toFixed(0)}%`}
+                                </text>
+                              )}
+                              outerRadius={80}
+                              fill="#8884d8"
+                              dataKey="value"
+                            >
+                              {skillDistribution.map((entry, index) => (
+                                <Cell
+                                  key={`cell-${index}`}
+                                  fill={entry.color}
+                                />
+                              ))}
+                            </Pie>
                             <Tooltip />
                           </PieChart>
                         </ResponsiveContainer>
@@ -692,21 +846,33 @@ export default function FacultyPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <Card>
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-lg">Average Completion Time</CardTitle>
+                      <CardTitle className="text-lg">
+                        Average Completion Time
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-3xl font-bold text-primary">3.2 months</div>
-                      <p className="text-sm text-muted-foreground">-0.3 from last semester</p>
+                      <div className="text-3xl font-bold text-primary">
+                        3.2 months
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        -0.3 from last semester
+                      </p>
                     </CardContent>
                   </Card>
 
                   <Card>
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-lg">Student Satisfaction</CardTitle>
+                      <CardTitle className="text-lg">
+                        Student Satisfaction
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-3xl font-bold text-primary">4.6/5</div>
-                      <p className="text-sm text-muted-foreground">+0.2 from last semester</p>
+                      <div className="text-3xl font-bold text-primary">
+                        4.6/5
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        +0.2 from last semester
+                      </p>
                     </CardContent>
                   </Card>
 
@@ -715,8 +881,12 @@ export default function FacultyPage() {
                       <CardTitle className="text-lg">Industry Rating</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-3xl font-bold text-primary">4.8/5</div>
-                      <p className="text-sm text-muted-foreground">+0.1 from last semester</p>
+                      <div className="text-3xl font-bold text-primary">
+                        4.8/5
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        +0.1 from last semester
+                      </p>
                     </CardContent>
                   </Card>
                 </div>
@@ -733,29 +903,39 @@ export default function FacultyPage() {
                     >
                       <Card className="h-full">
                         <CardHeader className="pb-3">
-                          <CardTitle className="text-lg text-balance">{partner.name}</CardTitle>
+                          <CardTitle className="text-lg text-balance">
+                            {partner.name}
+                          </CardTitle>
                           <CardDescription>Industry Partner</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div className="space-y-2">
                             <div className="flex justify-between text-sm">
                               <span>Active Interns</span>
-                              <span className="font-semibold">{partner.activeInterns}</span>
+                              <span className="font-semibold">
+                                {partner.activeInterns}
+                              </span>
                             </div>
                             <div className="flex justify-between text-sm">
                               <span>Total Interns</span>
-                              <span className="font-semibold">{partner.totalInterns}</span>
+                              <span className="font-semibold">
+                                {partner.totalInterns}
+                              </span>
                             </div>
                             <div className="flex justify-between text-sm">
                               <span>Rating</span>
                               <div className="flex items-center gap-1">
                                 <Star className="h-4 w-4 text-yellow-500" />
-                                <span className="font-semibold">{partner.rating}</span>
+                                <span className="font-semibold">
+                                  {partner.rating}
+                                </span>
                               </div>
                             </div>
                             <div className="flex justify-between text-sm">
                               <span>Last Contact</span>
-                              <span className="text-muted-foreground">{partner.lastContact}</span>
+                              <span className="text-muted-foreground">
+                                {partner.lastContact}
+                              </span>
                             </div>
                           </div>
 
@@ -764,7 +944,11 @@ export default function FacultyPage() {
                               <MessageSquare className="h-4 w-4 mr-1" />
                               Contact
                             </Button>
-                            <Button size="sm" variant="outline" className="flex-1 bg-transparent">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="flex-1 bg-transparent"
+                            >
                               <Eye className="h-4 w-4 mr-1" />
                               View
                             </Button>
@@ -784,7 +968,9 @@ export default function FacultyPage() {
                         <FileText className="h-5 w-5" />
                         Student Progress Report
                       </CardTitle>
-                      <CardDescription>Comprehensive progress tracking for all students</CardDescription>
+                      <CardDescription>
+                        Comprehensive progress tracking for all students
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <Button className="w-full">
@@ -800,7 +986,9 @@ export default function FacultyPage() {
                         <BarChart3 className="h-5 w-5" />
                         Performance Analytics
                       </CardTitle>
-                      <CardDescription>Detailed analytics and performance metrics</CardDescription>
+                      <CardDescription>
+                        Detailed analytics and performance metrics
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <Button className="w-full">
@@ -816,7 +1004,9 @@ export default function FacultyPage() {
                         <Building2 className="h-5 w-5" />
                         Industry Partnership
                       </CardTitle>
-                      <CardDescription>Partnership status and collaboration metrics</CardDescription>
+                      <CardDescription>
+                        Partnership status and collaboration metrics
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <Button className="w-full">
@@ -832,7 +1022,9 @@ export default function FacultyPage() {
                         <Award className="h-5 w-5" />
                         Completion Certificates
                       </CardTitle>
-                      <CardDescription>NEP-compliant completion certificates</CardDescription>
+                      <CardDescription>
+                        NEP-compliant completion certificates
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <Button className="w-full">
@@ -848,7 +1040,9 @@ export default function FacultyPage() {
                         <Target className="h-5 w-5" />
                         Skill Gap Analysis
                       </CardTitle>
-                      <CardDescription>Identify areas for curriculum improvement</CardDescription>
+                      <CardDescription>
+                        Identify areas for curriculum improvement
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <Button className="w-full">
@@ -864,7 +1058,9 @@ export default function FacultyPage() {
                         <Calendar className="h-5 w-5" />
                         Semester Summary
                       </CardTitle>
-                      <CardDescription>Complete semester performance summary</CardDescription>
+                      <CardDescription>
+                        Complete semester performance summary
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <Button className="w-full">
@@ -885,7 +1081,8 @@ export default function FacultyPage() {
                       AI Assistant - Faculty Support
                     </CardTitle>
                     <CardDescription>
-                      Get instant help with student management, NEP policies, and internship coordination
+                      Get instant help with student management, NEP policies,
+                      and internship coordination
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col">
@@ -893,11 +1090,14 @@ export default function FacultyPage() {
                       <div className="space-y-4">
                         <div className="flex gap-3">
                           <Avatar className="h-8 w-8">
-                            <AvatarFallback className="bg-primary text-primary-foreground">AI</AvatarFallback>
+                            <AvatarFallback className="bg-primary text-primary-foreground">
+                              AI
+                            </AvatarFallback>
                           </Avatar>
                           <div className="flex-1 bg-background p-3 rounded-lg border">
                             <p className="text-sm">
-                              Hello! I'm your AI assistant for faculty coordination. I can help you with:
+                              Hello! I'm your AI assistant for faculty
+                              coordination. I can help you with:
                               <br />• Student progress tracking and evaluation
                               <br />• NEP 2020 compliance guidelines
                               <br />• Industry partnership management
@@ -911,7 +1111,8 @@ export default function FacultyPage() {
                         <div className="flex gap-3 justify-end">
                           <div className="bg-primary text-primary-foreground p-3 rounded-lg max-w-xs">
                             <p className="text-sm">
-                              How do I evaluate student performance according to NEP guidelines?
+                              How do I evaluate student performance according to
+                              NEP guidelines?
                             </p>
                           </div>
                           <Avatar className="h-8 w-8">
@@ -920,19 +1121,27 @@ export default function FacultyPage() {
                         </div>
                         <div className="flex gap-3">
                           <Avatar className="h-8 w-8">
-                            <AvatarFallback className="bg-primary text-primary-foreground">AI</AvatarFallback>
+                            <AvatarFallback className="bg-primary text-primary-foreground">
+                              AI
+                            </AvatarFallback>
                           </Avatar>
                           <div className="flex-1 bg-background p-3 rounded-lg border">
                             <p className="text-sm">
-                              According to NEP 2020 guidelines, student evaluation should be:
-                              <br />• <strong>Competency-based:</strong> Focus on skills and learning outcomes
-                              <br />• <strong>Continuous:</strong> Regular assessments throughout the internship
-                              <br />• <strong>Holistic:</strong> Include technical skills, soft skills, and industry
+                              According to NEP 2020 guidelines, student
+                              evaluation should be:
+                              <br />• <strong>Competency-based:</strong> Focus
+                              on skills and learning outcomes
+                              <br />• <strong>Continuous:</strong> Regular
+                              assessments throughout the internship
+                              <br />• <strong>Holistic:</strong> Include
+                              technical skills, soft skills, and industry
                               readiness
-                              <br />• <strong>Documented:</strong> Maintain detailed progress reports
+                              <br />• <strong>Documented:</strong> Maintain
+                              detailed progress reports
                               <br />
                               <br />
-                              Would you like me to generate a NEP-compliant evaluation template?
+                              Would you like me to generate a NEP-compliant
+                              evaluation template?
                             </p>
                           </div>
                         </div>
@@ -953,5 +1162,5 @@ export default function FacultyPage() {
         </main>
       </div>
     </AuthGuard>
-  )
+  );
 }

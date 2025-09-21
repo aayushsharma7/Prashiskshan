@@ -141,7 +141,7 @@ export function Navigation() {
         <ThemeToggle />
               {user ? (
                 <DropdownMenu>
-                  <DropdownMenuTrigger>
+                  <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-14 mr-3 w-9 rounded-full">
                       <Avatar className="h-9 w-9">
                         <AvatarImage src="/user1.jpg" />
